@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.text.DecimalFormat;
+
 public class MainActivity extends AppCompatActivity {
     private Button btnZero, btnOne, btnTwo, btnThree, btnFour, btnFive, btnSix, btnSeven, btnEight, btnNine,
             btnAC, btnDel, btnAdd, btnSubtract, btnMultiply, btnDivide, btnEquals, btnDot;
@@ -17,7 +19,9 @@ public class MainActivity extends AppCompatActivity {
     double firstNumber = 0;
     double lastNumber = 0;
 
-
+    String status = null;
+    boolean operator = false;
+    DecimalFormat myFormatter = new DecimalFormat("######.######");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,49 +124,124 @@ public class MainActivity extends AppCompatActivity {
         btnAC.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                number = null;
+                status = null;
+                textViewResult.setText("0");
+                textViewHistory.setText("");
+                firstNumber = 0;
+                lastNumber = 0;
             }
         });
 
         btnDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                number = number.substring(0, number.length() - 1);
+                textViewResult.setText(number);
             }
         });
 
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (operator) {
+                    if (status == "multiplication") {
+                        multiply();
+                    } else if (status == "division") {
+                        divide();
+                    } else if (status == "subtraction") {
+                        minus();
+                    } else {
+                        plus();
+                    }
+                }
 
+                status = "sum";
+                operator = false;
+                number = null;
             }
         });
 
         btnSubtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (operator) {
+                    if (status == "multiplication") {
+                        multiply();
+                    } else if (status == "division") {
+                        divide();
+                    } else if (status == "sum") {
+                        plus();
+                    } else {
+                        minus();
+                    }
+                }
 
+                status = "subtraction";
+                operator = false;
+                number = null;
             }
         });
 
         btnMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (operator) {
+                    if (status == "sum") {
+                        plus();
+                    } else if (status == "subtraction") {
+                        minus();
+                    } else if (status == "division") {
+                        divide();
+                    } else {
+                        multiply();
+                    }
+                }
 
+                status = "multiplication";
+                operator = false;
+                number = null;
             }
         });
 
         btnDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (operator) {
+                    if (status == "sum") {
+                        plus();
+                    } else if (status == "subtraction") {
+                        minus();
+                    } else if (status == "multiplication") {
+                        multiply();
+                    } else {
+                        divide();
+                    }
+                }
 
+                status = "division";
+                operator = false;
+                number = null;
             }
         });
 
         btnEquals.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (operator) {
+                    if (status == "sum") {
+                        plus();
+                    } else if (status == "subtraction") {
+                        minus();
+                    } else if (status == "multiply") {
+                        multiply();
+                    } else if (status == "division") {
+                        divide();
+                    } else {
+                        firstNumber = Double.parseDouble(textViewResult.getText().toString());
+                    }
+                    operator = false;
+                }
             }
         });
 
@@ -182,12 +261,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         textViewResult.setText(number);
+        operator = true;
     }
 
     public void plus() {
         lastNumber = Double.parseDouble(textViewResult.getText().toString());
         firstNumber = firstNumber + lastNumber;
-        textViewResult.setText("" + firstNumber);
+        textViewResult.setText(myFormatter.format(firstNumber));
     }
 
     public void minus() {
@@ -196,7 +276,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             lastNumber = Double.parseDouble(textViewResult.getText().toString());
             firstNumber = firstNumber - lastNumber;
-            textViewResult.setText("" + firstNumber);
+            textViewResult.setText(myFormatter.format(firstNumber));
         }
     }
 
@@ -209,7 +289,7 @@ public class MainActivity extends AppCompatActivity {
             lastNumber = Double.parseDouble(textViewResult.getText().toString());
             firstNumber = firstNumber * lastNumber;
         }
-        textViewResult.setText("" + firstNumber);
+        textViewResult.setText(myFormatter.format(firstNumber));
     }
 
     public void divide() {
@@ -221,6 +301,6 @@ public class MainActivity extends AppCompatActivity {
             firstNumber = firstNumber / lastNumber;
         }
 
-        textViewResult.setText("" + firstNumber);
+        textViewResult.setText(myFormatter.format(firstNumber));
     }
 }
