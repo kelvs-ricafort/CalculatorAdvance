@@ -14,6 +14,9 @@ public class MainActivity extends AppCompatActivity {
 
     private String number = null;
 
+    double firstNumber = 0;
+    double lastNumber = 0;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +116,62 @@ public class MainActivity extends AppCompatActivity {
                 numberClick("9");
             }
         });
+
+        btnAC.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnDel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnSubtract.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnMultiply.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnDivide.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnEquals.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        btnDot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
     }
 
     public void numberClick(String view) {
@@ -123,5 +182,45 @@ public class MainActivity extends AppCompatActivity {
         }
 
         textViewResult.setText(number);
+    }
+
+    public void plus() {
+        lastNumber = Double.parseDouble(textViewResult.getText().toString());
+        firstNumber = firstNumber + lastNumber;
+        textViewResult.setText("" + firstNumber);
+    }
+
+    public void minus() {
+        if (firstNumber == 0) {
+            firstNumber = Double.parseDouble(textViewResult.getText().toString());
+        } else {
+            lastNumber = Double.parseDouble(textViewResult.getText().toString());
+            firstNumber = firstNumber - lastNumber;
+            textViewResult.setText("" + firstNumber);
+        }
+    }
+
+    public void multiply() {
+        if (firstNumber == 0) {
+            firstNumber = 1;
+            lastNumber = Double.parseDouble(textViewResult.getText().toString());
+            firstNumber = firstNumber * lastNumber;
+        } else {
+            lastNumber = Double.parseDouble(textViewResult.getText().toString());
+            firstNumber = firstNumber * lastNumber;
+        }
+        textViewResult.setText("" + firstNumber);
+    }
+
+    public void divide() {
+        if (firstNumber == 0) {
+            lastNumber = Double.parseDouble(textViewResult.getText().toString());
+            firstNumber = lastNumber / 1;
+        } else {
+            lastNumber = Double.parseDouble(textViewResult.getText().toString());
+            firstNumber = firstNumber / lastNumber;
+        }
+
+        textViewResult.setText("" + firstNumber);
     }
 }
