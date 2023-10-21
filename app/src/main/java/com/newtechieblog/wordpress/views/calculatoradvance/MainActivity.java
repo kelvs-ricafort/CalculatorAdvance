@@ -21,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
 
     String status = null;
     boolean operator = false;
+
+    String history, currentResult;
     DecimalFormat myFormatter = new DecimalFormat("######.######");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,6 +146,9 @@ public class MainActivity extends AppCompatActivity {
         btnAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                history = textViewHistory.getText().toString();
+                currentResult = textViewResult.getText().toString();
+                textViewHistory.setText(history + currentResult + "+");
                 if (operator) {
                     if (status == "multiplication") {
                         multiply();
@@ -165,6 +170,10 @@ public class MainActivity extends AppCompatActivity {
         btnSubtract.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                history = textViewHistory.getText().toString();
+                currentResult = textViewResult.getText().toString();
+                textViewHistory.setText(history + currentResult + "-");
+
                 if (operator) {
                     if (status == "multiplication") {
                         multiply();
@@ -186,6 +195,10 @@ public class MainActivity extends AppCompatActivity {
         btnMultiply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                history = textViewHistory.getText().toString();
+                currentResult = textViewResult.getText().toString();
+                textViewHistory.setText(history + currentResult + "*");
+
                 if (operator) {
                     if (status == "sum") {
                         plus();
@@ -207,6 +220,10 @@ public class MainActivity extends AppCompatActivity {
         btnDivide.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                history = textViewHistory.getText().toString();
+                currentResult = textViewResult.getText().toString();
+                textViewHistory.setText(history + currentResult + "/");
+
                 if (operator) {
                     if (status == "sum") {
                         plus();
@@ -248,7 +265,12 @@ public class MainActivity extends AppCompatActivity {
         btnDot.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                if (number == null) {
+                    number = "0.";
+                } else {
+                    number = number + ".";
+                }
+                textViewResult.setText(number);
             }
         });
     }
